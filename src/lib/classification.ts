@@ -66,7 +66,7 @@ export interface ClassificationResult {
 }
 
 export function isLargeEntity(i: ClassificationInput): boolean {
-  return i.size === "LARGE" || i.employees > 250 || i.annualTurnoverM > 50 || i.annualBalanceSheetM > 43;
+  return i.size === "LARGE" || i.employees >= 250 || i.annualTurnoverM > 50 || i.annualBalanceSheetM > 43;
 }
 
 export function isMediumOrLargeEntity(i: ClassificationInput): boolean {
@@ -152,12 +152,17 @@ export function classifyEntity(input: ClassificationInput): ClassificationResult
   );
 
   if (!sector || input.sectorId === "OTHER") {
+    const isBiggerEntity = isMediumOrLargeEntity(input);
     return {
-      classification: isMediumOrLargeEntity(input) ? "NOT_COVERED" : "SME",
-      isAutoEssential: false, track: "SME", sectorName: "Друг сектор",
+      classification: isBiggerEntity ? "NOT_COVERED" : "SME",
+      isAutoEssential: false, track: isBiggerEntity ? "NONE" : "SME", sectorName: "Друг сектор",
       legalBasis: "Надвор од Член 4(2) на ЗБМИС",
       reason: "Секторот не е опфатен со Член 4(2) на ЗБМИС. Нема задолжителна обврска.",
-      obligations: ["Доброволна усогласеност", "Следење на ENISA препораки"],
+      obligations: [
+        "Доброволна усогласеност и самопроценка",
+        "Следење на ENISA и MKD-CIRT препораки",
+        ...(isBiggerEntity ? ["Препорачана внатрешна проценка на ризик поради деловна критичност"] : []),
+      ],
       sanctions: "Нема задолжителни санкции", deadlines: "Нема законски рокови",
     };
   }

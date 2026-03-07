@@ -102,6 +102,13 @@ const SIZES: { v: EntitySize; label: string; range: string; zbmis: string; color
   { v: "LARGE",  label: "Големо", range: "250+ вработени  ·  €50М+ приход",      zbmis: "Суштински — Член 8(1) т.1", color: "#ef4444" },
 ];
 
+const CLASS_LABEL: Record<string, string> = {
+  ESSENTIAL: "Суштински субјект",
+  IMPORTANT: "Важен субјект",
+  SME: "ММСП",
+  NOT_COVERED: "Не е директно опфатен",
+};
+
 const emptyFlags: Record<FlagKey, boolean> = {
   isPublicSector: false, isQualifiedTrustProvider: false, isTrustServiceProvider: false,
   isTldRegistry: false, isDnsProvider: false, isCriticalInfraOwner: false,
@@ -146,18 +153,37 @@ export default function ClassifyPage() {
   const steps = isAuto ? [1, 2] : [1, 2, 3];
   const stepLabels = ["Тип на субјект", "Сектор", "Големина"];
 
+  const previewResult = (isAuto || (sectorId && size))
+    ? classifyEntity({
+        sectorId: sectorId || "OTHER",
+        size: (size || "MICRO") as EntitySize,
+        employees: Number(employees) || 0,
+        annualTurnoverM: Number(turnover) || 0,
+        annualBalanceSheetM: Number(balance) || 0,
+        ...flags,
+      })
+    : null;
+
+  const previewTone = previewResult?.classification === "ESSENTIAL"
+    ? "text-red-300 border-red-500/20 bg-red-500/8"
+    : previewResult?.classification === "IMPORTANT"
+      ? "text-amber-300 border-amber-500/20 bg-amber-500/8"
+      : previewResult?.classification === "SME"
+        ? "text-emerald-300 border-emerald-500/20 bg-emerald-500/8"
+        : "text-slate-300 border-slate-500/20 bg-slate-500/8";
+
   return (
     <div className="min-h-screen bg-[#080f1e] px-4 py-10">
       <div className="absolute inset-0 grid-bg pointer-events-none opacity-30" />
 
-      <div className="relative max-w-xl mx-auto">
+      <div className="relative max-w-3xl mx-auto">
         <Link href="/assessment"
           className="inline-flex items-center gap-2 text-xs font-mono text-slate-500 hover:text-slate-300 mb-10 tracking-wider uppercase transition-colors">
           ← Назад
         </Link>
 
         {/* Header */}
-        <div className="mb-10">
+        <div className="mb-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6 md:p-7">
           <div className="text-xs font-mono text-blue-500 tracking-widest uppercase mb-3">
             ЗБМИС · Сл. весник бр. 135 · 4.7.2025
           </div>
@@ -170,7 +196,7 @@ export default function ClassifyPage() {
         </div>
 
         {/* Step indicator */}
-        <div className="flex items-center gap-0 mb-10">
+        <div className="flex items-center gap-0 mb-8">
           {steps.map((s, i) => (
             <div key={s} className="flex items-center">
               <div className="flex items-center gap-2">
@@ -192,6 +218,30 @@ export default function ClassifyPage() {
           ))}
         </div>
 
+
+
+        <div className="grid md:grid-cols-2 gap-4 mb-6">
+          <div className="rounded-2xl border border-blue-500/20 bg-blue-500/5 p-4">
+            <p className="text-xs text-blue-100/90 leading-relaxed">
+              Платформата дава индикативна класификација според внесените податоци и релевантните одредби од ЗБМИС.
+              За регулаторна потврда, користете ја официјалната постапка кај надлежните институции.
+            </p>
+          </div>
+
+          <div className={`rounded-2xl border p-4 ${previewResult ? previewTone : "border-white/10 bg-white/[0.02]"}`}>
+            <div className="text-[11px] font-mono uppercase tracking-wider mb-2 text-slate-400">Брз преглед</div>
+            {previewResult ? (
+              <>
+                <div className="text-sm font-semibold mb-1">{CLASS_LABEL[previewResult.classification] || previewResult.classification}</div>
+                <div className="text-xs text-slate-300 leading-relaxed">{previewResult.legalBasis}</div>
+              </>
+            ) : (
+              <div className="text-xs text-slate-500 leading-relaxed">
+                Изберете сектор и големина (или означете автоматска категорија) за да видите моментален преглед.
+              </div>
+            )}
+          </div>
+        </div>
         {/* ═══════════════ STEP 1 ═══════════════ */}
         {step === 1 && (
           <div className="space-y-4">
