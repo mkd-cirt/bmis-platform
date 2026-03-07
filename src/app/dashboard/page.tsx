@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Link from "next/link";
 
 export default function DashboardPage() {
@@ -42,7 +44,9 @@ export default function DashboardPage() {
           <div className="px-6 py-20 text-center">
             <div className="text-5xl mb-4">📋</div>
             <div className="font-display font-600 text-white text-lg mb-2">Нема проценки уште</div>
-            <p className="text-slate-400 text-sm mb-8 max-w-xs mx-auto">Започнете со вашата прва BMIS самооценка — трае помалку од 30 минути.</p>
+            <p className="text-slate-400 text-sm mb-8 max-w-xs mx-auto">
+              Започнете со вашата прва BMIS самооценка — трае помалку од 30 минути.
+            </p>
             <Link href="/assessment" className="btn-primary">Започни проценка →</Link>
           </div>
         </div>
