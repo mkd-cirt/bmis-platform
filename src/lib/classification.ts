@@ -1,28 +1,19 @@
 /**
- * ЗБМИС — Сл. весник бр. 135, 4.7.2025
- * Прецизна класификација по Член 4, Член 7, Член 8
+ * ЗБМИС — Сл. весник на РСМ бр. 135, 4.7.2025
  *
- * Член 8(1) — Суштински субјекти:
- *   т.1 → Големи субјекти во Член 4(2)           [зависи од големина]
- *   т.2 → Квалификувани доверливи, .mk/.мкд, DNS [независно]
- *   т.3 → Телеком оператори средни+големи         [зависи: средни+]
- *   т.4 → Јавни институции Член 4(1)              [независно]
- *   т.5 → Субјекти Член 4(3) т.2 и т.3            [независно]
- *   т.6 → Критична инфраструктура                 [независно]
- *   т.7 → Утврдени со закон                       [независно]
- *   т.8 → Утврдени преку проценка на ризик        [независно]
+ * Член 8(1) Суштински субјекти:
+ *  т.1 → Големи субјекти во Член 4(2)                     [ЗАВИСИ: само големи]
+ *  т.2 → Квалификувани доверливи, .mk/.мкд, DNS            [НЕЗАВИСНО]
+ *  т.3 → Телеком оператори средни+големи                   [ЗАВИСИ: средни+]
+ *  т.4 → Јавни институции Член 4(1)                        [НЕЗАВИСНО]
+ *  т.5 → Субјекти Член 4(3) т.2 и т.3                      [НЕЗАВИСНО]
+ *  т.6 → Критична инфраструктура                           [НЕЗАВИСНО]
+ *  т.7 → Утврдени со национално законодавство              [НЕЗАВИСНО]
+ *  т.8 → Утврдени преку проценка на ризик                  [НЕЗАВИСНО]
  *
- * Член 4(3) — Сите правни лица со седиште во РСМ ако се:
- *   т.1 → Телеком оператори/даватели              [→ Член 8(1) т.3: средни+големи=суштински]
- *   т.2 → Даватели на доверливи услуги            [→ Член 8(1) т.5: независно]
- *   т.3 → Регистар .mk/.мкд                       [→ Член 8(1) т.5: независно]
- *   т.4 → DNS даватели                            [→ Член 8(1) т.2: независно]
- *   т.5 → Единствен давател суштинска услуга      [независно]
- *   т.6 → Значително влијание јавна безбедност    [независно]
- *   т.7 → Значителни системски ризици             [независно]
- *   т.8 → Критични за одредена област             [независно]
- *   т.9 → Критична инфраструктура                 [→ Член 8(1) т.6: независно]
- *   т.10→ Регистрација на имиња на домени         [независно]
+ * Член 8(2) Важни субјекти:
+ *  т.1 → Субјекти од листата со висока критичност кои не се суштински
+ *  т.2 → Утврдени преку проценка на ризик
  */
 
 import { sectors } from "@/data/sectors";
@@ -31,244 +22,193 @@ export type EntityClassification = "ESSENTIAL" | "IMPORTANT" | "SME" | "NOT_COVE
 export type EntitySize = "MICRO" | "SMALL" | "MEDIUM" | "LARGE";
 
 export interface ClassificationInput {
-  sectorId:             string;
-  size:                 EntitySize;
-  employees:            number;
-  annualTurnoverM:      number;
-  annualBalanceSheetM:  number;
-  // ── Член 8(1) т.4 + Член 4(1) ──────────────────────────────────────────
-  isPublicSector?:                boolean; // Собрание, Влада, министерство, суд, општина
-  // ── Член 8(1) т.2 + Член 4(3) т.4 ─────────────────────────────────────
-  isDnsProvider?:                 boolean; // Давател на ДНС услуги
-  // ── Член 8(1) т.2 + Член 4(3) т.3 ─────────────────────────────────────
-  isTldRegistry?:                 boolean; // Регистар на врвни домени .mk/.мкд
-  // ── Член 8(1) т.2 ───────────────────────────────────────────────────────
-  isQualifiedTrustProvider?:      boolean; // Квалификувани доверливи услуги
-  // ── Член 8(1) т.5 + Член 4(3) т.2 ─────────────────────────────────────
-  isTrustServiceProvider?:        boolean; // Даватели на доверливи услуги (неквалификувани)
-  // ── Член 8(1) т.3 + Член 4(3) т.1 ─────────────────────────────────────
-  isPublicElectronicCommsOp?:     boolean; // Телеком: средни+големи=суштински
-  // ── Член 8(1) т.6 + Член 4(3) т.9 ─────────────────────────────────────
-  isCriticalInfraOwner?:          boolean; // Критична инфраструктура
-  // ── Член 4(3) т.5 ───────────────────────────────────────────────────────
-  isUniqueSectorProvider?:        boolean; // Единствен давател суштинска услуга во РСМ
-  // ── Член 4(3) т.6 ───────────────────────────────────────────────────────
-  isPublicSafetyImpact?:          boolean; // Значително влијание јавна безбедност/здравје
-  // ── Член 4(3) т.7 ───────────────────────────────────────────────────────
-  isSystemicRisk?:                boolean; // Значителни системски ризици (прекугранично)
-  // ── Член 4(3) т.8 ───────────────────────────────────────────────────────
-  isCriticalForSector?:           boolean; // Критичен за одредена област/тип услуга
-  // ── Член 4(3) т.10 ──────────────────────────────────────────────────────
-  isDomainRegistrar?:             boolean; // Услуги за регистрација на имиња на домени
+  sectorId:            string;
+  size:                EntitySize;
+  employees:           number;
+  annualTurnoverM:     number;
+  annualBalanceSheetM: number;
+  // Член 4(1) + Член 8(1) т.4 — НЕЗАВИСНО
+  isPublicSector?:            boolean;
+  // Член 8(1) т.2 — НЕЗАВИСНО
+  isQualifiedTrustProvider?:  boolean;
+  // Член 8(1) т.2 + Член 4(3) т.3 — НЕЗАВИСНО
+  isTldRegistry?:             boolean;
+  // Член 8(1) т.2 + Член 4(3) т.4 — НЕЗАВИСНО
+  isDnsProvider?:             boolean;
+  // Член 8(1) т.5 + Член 4(3) т.2 — НЕЗАВИСНО
+  isTrustServiceProvider?:    boolean;
+  // Член 8(1) т.3 + Член 4(3) т.1 — ЗАВИСИ: средни+големи
+  isPublicElectronicCommsOp?: boolean;
+  // Член 8(1) т.6 + Член 4(3) т.9 — НЕЗАВИСНО
+  isCriticalInfraOwner?:      boolean;
+  // Член 4(3) т.5 — НЕЗАВИСНО
+  isUniqueSectorProvider?:    boolean;
+  // Член 4(3) т.6 — НЕЗАВИСНО
+  isPublicSafetyImpact?:      boolean;
+  // Член 4(3) т.7 — НЕЗАВИСНО
+  isSystemicRisk?:            boolean;
+  // Член 4(3) т.8 — НЕЗАВИСНО
+  isCriticalForSector?:       boolean;
+  // Член 4(3) т.10 — НЕЗАВИСНО
+  isDomainRegistrar?:         boolean;
 }
 
 export interface ClassificationResult {
-  classification:   EntityClassification;
-  isAutoEssential:  boolean;
-  track:            "BMIS" | "SME" | "NONE";
-  sectorName:       string;
-  legalBasis:       string;
-  reason:           string;
-  obligations:      string[];
-  sanctions:        string;
-  deadlines:        string;
+  classification:  EntityClassification;
+  isAutoEssential: boolean;
+  track:           "BMIS" | "SME" | "NONE";
+  sectorName:      string;
+  legalBasis:      string;
+  reason:          string;
+  obligations:     string[];
+  sanctions:       string;
+  deadlines:       string;
 }
 
-export function isLarge(i: ClassificationInput): boolean {
+export function isLargeEntity(i: ClassificationInput): boolean {
   return i.size === "LARGE" || i.employees > 250 || i.annualTurnoverM > 50 || i.annualBalanceSheetM > 43;
 }
 
-export function isMediumOrLarge(i: ClassificationInput): boolean {
-  return isLarge(i) || i.size === "MEDIUM" || i.employees >= 50 || i.annualTurnoverM >= 10 || i.annualBalanceSheetM >= 10;
+export function isMediumOrLargeEntity(i: ClassificationInput): boolean {
+  return isLargeEntity(i) || i.size === "MEDIUM" || i.employees >= 50 || i.annualTurnoverM >= 10 || i.annualBalanceSheetM >= 10;
 }
 
 /**
- * Враќа дали субјектот е АВТОМАТСКИ СУШТИНСКИ независно од големина.
- * Ги покрива сите точки од Член 8(1) кои немаат услов за големина.
+ * Проверува дали субјектот е СУШТИНСКИ независно од големина.
+ * Само точките кои немаат услов за големина.
  */
-export function isAutoEssentialEntity(i: ClassificationInput): { yes: boolean; basis: string; name: string } {
-
-  // Член 8(1) т.4 — Јавни институции (Член 4(1))
+export function isAutoEssentialEntity(i: ClassificationInput): {
+  yes: boolean; basis: string; name: string;
+} {
   if (i.isPublicSector)
     return { yes: true, basis: "Член 8(1) т.4", name: "Институција на јавниот сектор" };
-
-  // Член 8(1) т.2 — Квалификувани доверливи услуги
   if (i.isQualifiedTrustProvider)
     return { yes: true, basis: "Член 8(1) т.2", name: "Давател на квалификувани доверливи услуги" };
-
-  // Член 8(1) т.2 + Член 4(3) т.3 — Регистар .mk/.мкд
   if (i.isTldRegistry)
-    return { yes: true, basis: "Член 8(1) т.2 и Член 4(3) т.3", name: "Регистар на врвни домени (.mk / .мкд)" };
-
-  // Член 8(1) т.2 + Член 4(3) т.4 — DNS
+    return { yes: true, basis: "Член 8(1) т.2 + Член 4(3) т.3", name: "Регистар на врвни домени (.mk / .мкд)" };
   if (i.isDnsProvider)
-    return { yes: true, basis: "Член 8(1) т.2 и Член 4(3) т.4", name: "Давател на ДНС услуги" };
-
-  // Член 8(1) т.5 + Член 4(3) т.2 — Доверливи услуги (неквалификувани)
+    return { yes: true, basis: "Член 8(1) т.2 + Член 4(3) т.4", name: "Давател на ДНС услуги" };
   if (i.isTrustServiceProvider)
-    return { yes: true, basis: "Член 8(1) т.5 и Член 4(3) т.2", name: "Давател на доверливи услуги" };
-
-  // Член 8(1) т.6 + Член 4(3) т.9 — Критична инфраструктура
+    return { yes: true, basis: "Член 8(1) т.5 + Член 4(3) т.2", name: "Давател на доверливи услуги" };
   if (i.isCriticalInfraOwner)
-    return { yes: true, basis: "Член 8(1) т.6 и Член 4(3) т.9", name: "Сопственик/оператор на критична инфраструктура" };
-
-  // Член 4(3) т.5 — Единствен давател
+    return { yes: true, basis: "Член 8(1) т.6 + Член 4(3) т.9", name: "Сопственик/оператор на критична инфраструктура" };
   if (i.isUniqueSectorProvider)
     return { yes: true, basis: "Член 4(3) т.5", name: "Единствен давател на суштинска услуга во РСМ" };
-
-  // Член 4(3) т.6 — Јавна безбедност/здравје
   if (i.isPublicSafetyImpact)
-    return { yes: true, basis: "Член 4(3) т.6", name: "Субјект со значително влијание врз јавната безбедност или здравје" };
-
-  // Член 4(3) т.7 — Системски ризици
+    return { yes: true, basis: "Член 4(3) т.6", name: "Значително влијание врз јавната безбедност/здравје" };
   if (i.isSystemicRisk)
     return { yes: true, basis: "Член 4(3) т.7", name: "Субјект кој предизвикува значителни системски ризици" };
-
-  // Член 4(3) т.8 — Критичен за одредена област
   if (i.isCriticalForSector)
-    return { yes: true, basis: "Член 4(3) т.8", name: "Субјект критичен за одредена област или тип услуга" };
-
-  // Член 4(3) т.10 — Регистрација на имиња на домени
+    return { yes: true, basis: "Член 4(3) т.8", name: "Критичен субјект за одредена област или тип услуга" };
   if (i.isDomainRegistrar)
-    return { yes: true, basis: "Член 4(3) т.10", name: "Субјект кој обезбедува услуги за регистрација на имиња на домени" };
-
+    return { yes: true, basis: "Член 4(3) т.10", name: "Давател на услуги за регистрација на имиња на домени" };
   return { yes: false, basis: "", name: "" };
 }
 
 export function classifyEntity(input: ClassificationInput): ClassificationResult {
-
-  // ── ПРИОРИТЕТ 1: Автоматски суштински — независно од големина ───────────
+  // 1. Автоматски суштински — независно од големина
   const auto = isAutoEssentialEntity(input);
   if (auto.yes) {
     return {
-      classification: "ESSENTIAL",
-      isAutoEssential: true,
-      track: "BMIS",
-      sectorName: auto.name,
-      legalBasis: auto.basis,
-      reason: `Вашата организација е СУШТИНСКИ СУБЈЕКТ автоматски, НЕЗАВИСНО ОД НЕЈЗИНАТА ГОЛЕМИНА, согласно ${auto.basis} од ЗБМИС. Оваа категорија не бара проверка на број на вработени, приход или биланс на состојба.`,
-      obligations: essentialObligations(!!input.isPublicSector),
+      classification: "ESSENTIAL", isAutoEssential: true, track: "BMIS",
+      sectorName: auto.name, legalBasis: auto.basis,
+      reason: `Вашата организација е СУШТИНСКИ СУБЈЕКТ автоматски и НЕЗАВИСНО ОД НЕЈЗИНАТА ГОЛЕМИНА согласно ${auto.basis} од ЗБМИС.`,
+      obligations: essentialObl(!!input.isPublicSector),
       sanctions: input.isPublicSector
-        ? "Прекршочни казни и мерки на надзор од Министерството за дигитална трансформација"
-        : "До 2% од годишниот вкупен приход на светско ниво ИЛИ до €10.000.000 (која е поголема). Можна забрана за вршење дејност до 2 години.",
-      deadlines: input.isPublicSector
-        ? "Рок за усогласување: 31 декември 2027 година"
-        : "Рок за усогласување: 31 декември 2026 година",
+        ? "Прекршочни казни и мерки на надзор од Министерството"
+        : "До 2% од годишниот приход или до €10.000.000 (поголемата). Можна забрана до 2 години.",
+      deadlines: input.isPublicSector ? "31 декември 2027" : "31 декември 2026",
     };
   }
 
-  // ── ПРИОРИТЕТ 2: Телеком — Член 8(1) т.3 + Член 4(3) т.1 ───────────────
-  // Средни И големи телеком оператори = суштински (не само големи!)
+  // 2. Телеком — Член 8(1) т.3: средни+големи = суштински
   if (input.isPublicElectronicCommsOp) {
-    if (isMediumOrLarge(input)) {
+    if (isMediumOrLargeEntity(input)) {
       return {
-        classification: "ESSENTIAL",
-        isAutoEssential: false,
-        track: "BMIS",
-        sectorName: "Оператор/давател на јавни електронски комуникациски мрежи/услуги",
-        legalBasis: "Член 8(1) т.3 и Член 4(3) т.1",
-        reason: "Операторите/давателите на јавни електронски комуникациски мрежи и услуги кои се СРЕДНИ И ГОЛЕМИ субјекти се СУШТИНСКИ СУБЈЕКТИ согласно Член 8(1) т.3 од ЗБМИС. Ова важи за средни субјекти — за разлика од општото правило каде само големите се суштински.",
-        obligations: essentialObligations(false),
-        sanctions: "До 2% од годишниот вкупен приход на светско ниво ИЛИ до €10.000.000.",
-        deadlines: "Рок за усогласување: 31 декември 2026 година",
-      };
-    } else {
-      // Мал/микро телеком — важен, не суштински
-      return {
-        classification: "IMPORTANT",
-        isAutoEssential: false,
-        track: "BMIS",
-        sectorName: "Оператор/давател на јавни електронски комуникациски мрежи/услуги (мал/микро)",
-        legalBasis: "Член 4(3) т.1 — мал/микро субјект",
-        reason: "Операторите/давателите на јавни електронски комуникациски мрежи и услуги кои се МАЛИ или МИКРО субјекти спаѓаат во опфатот на ЗБМИС, но не се суштински (Член 8(1) т.3 бара средни или големи). Може да бидат утврдени како важни субјекти.",
-        obligations: importantObligations(),
-        sanctions: "До 1.4% од годишниот вкупен приход ИЛИ до €7.000.000.",
-        deadlines: "Рок за усогласување: 31 декември 2026 година",
+        classification: "ESSENTIAL", isAutoEssential: false, track: "BMIS",
+        sectorName: "Оператор на јавни електронски комуникациски мрежи/услуги",
+        legalBasis: "Член 8(1) т.3 + Член 4(3) т.1",
+        reason: "Телеком оператори кои се СРЕДНИ ИЛИ ГОЛЕМИ субјекти се СУШТИНСКИ согласно Член 8(1) т.3.",
+        obligations: essentialObl(false),
+        sanctions: "До 2% од годишниот приход или до €10.000.000.",
+        deadlines: "31 декември 2026",
       };
     }
+    // Мал/микро телеком — важен
+    return {
+      classification: "IMPORTANT", isAutoEssential: false, track: "BMIS",
+      sectorName: "Оператор на јавни електронски комуникациски мрежи/услуги (мал/микро)",
+      legalBasis: "Член 4(3) т.1 — мал/микро субјект",
+      reason: "Телеком оператори кои се МАЛИ или МИКРО не ги исполнуваат условите за суштински (Член 8(1) т.3 бара средни/големи), но се во опфатот на законот.",
+      obligations: importantObl(),
+      sanctions: "До 1.4% од годишниот приход или до €7.000.000.",
+      deadlines: "31 декември 2026",
+    };
   }
 
-  // ── ПРИОРИТЕТ 3: Сектори по Член 4(2) ── само средни и големи ────────────
-  const sector = sectors.find(s =>
+  // 3. Сектори по Член 4(2)
+  const sector = sectors.find((s: any) =>
     s.id === input.sectorId || s.subsectors?.some((sub: any) => sub.id === input.sectorId)
   );
 
   if (!sector || input.sectorId === "OTHER") {
     return {
-      classification: isMediumOrLarge(input) ? "NOT_COVERED" : "SME",
-      isAutoEssential: false,
-      track: "SME",
-      sectorName: "Друг сектор",
+      classification: isMediumOrLargeEntity(input) ? "NOT_COVERED" : "SME",
+      isAutoEssential: false, track: "SME", sectorName: "Друг сектор",
       legalBasis: "Надвор од Член 4(2) на ЗБМИС",
-      reason: isMediumOrLarge(input)
-        ? "Вашата организација работи во сектор кој не е директно опфатен со Член 4(2) на ЗБМИС. Не постои законска обврска за усогласување."
-        : "Вашата организација е ММСП во сектор кој не е опфатен со ЗБМИС. Препорачуваме ENISA ММСП проценката.",
-      obligations: ["Доброволна усогласеност — нема законска обврска", "Следење на ENISA препораки", "Препорачана ММСП самопроценка"],
-      sanctions: "Нема задолжителни санкции",
-      deadlines: "Нема законски рокови",
+      reason: "Секторот не е опфатен со Член 4(2) на ЗБМИС. Нема задолжителна обврска.",
+      obligations: ["Доброволна усогласеност", "Следење на ENISA препораки"],
+      sanctions: "Нема задолжителни санкции", deadlines: "Нема законски рокови",
     };
   }
 
-  // Голем субјект → СУШТИНСКИ (Член 8(1) т.1)
-  if (isLarge(input)) {
+  if (isLargeEntity(input)) {
     return {
-      classification: "ESSENTIAL",
-      isAutoEssential: false,
-      track: "BMIS",
-      sectorName: sector.name.mk,
-      legalBasis: "Член 8(1) т.1",
-      reason: `Вашата организација е ГОЛЕМ СУБЈЕКТ во областа "${sector.name.mk}" (Член 4(2) на ЗБМИС). Сите ГОЛЕМИ субјекти во опфатените области автоматски се СУШТИНСКИ СУБЈЕКТИ (Член 8(1) т.1). Голем = над 250 вработени ИЛИ над €50М приход ИЛИ над €43М биланс.`,
-      obligations: essentialObligations(false),
-      sanctions: "До 2% од годишниот вкупен приход на светско ниво ИЛИ до €10.000.000. Можна забрана за вршење дејност до 2 години.",
-      deadlines: "Рок за усогласување: 31 декември 2026 година",
+      classification: "ESSENTIAL", isAutoEssential: false, track: "BMIS",
+      sectorName: sector.name.mk, legalBasis: "Член 8(1) т.1",
+      reason: `ГОЛЕМ субјект во "${sector.name.mk}" (Член 4(2)). Сите големи субјекти во опфатените области се СУШТИНСКИ (Член 8(1) т.1).`,
+      obligations: essentialObl(false),
+      sanctions: "До 2% од годишниот приход или до €10.000.000. Можна забрана до 2 години.",
+      deadlines: "31 декември 2026",
     };
   }
 
-  // Среден субјект → ВАЖЕН (Член 8(2) т.1)
-  if (isMediumOrLarge(input)) {
+  if (isMediumOrLargeEntity(input)) {
     return {
-      classification: "IMPORTANT",
-      isAutoEssential: false,
-      track: "BMIS",
-      sectorName: sector.name.mk,
-      legalBasis: "Член 8(2) т.1",
-      reason: `Вашата организација е СРЕДЕН СУБЈЕКТ во областа "${sector.name.mk}" (Член 4(2) на ЗБМИС). Средните субјекти во опфатените области кои не се суштински се ВАЖНИ СУБЈЕКТИ (Член 8(2) т.1). Среден = 50–249 вработени ИЛИ €10–50М приход.`,
-      obligations: importantObligations(),
-      sanctions: "До 1.4% од годишниот вкупен приход на светско ниво ИЛИ до €7.000.000.",
-      deadlines: "Рок за усогласување: 31 декември 2026 година",
+      classification: "IMPORTANT", isAutoEssential: false, track: "BMIS",
+      sectorName: sector.name.mk, legalBasis: "Член 8(2) т.1",
+      reason: `СРЕДЕН субјект во "${sector.name.mk}" (Член 4(2)). Средните субјекти во опфатените области кои не се суштински се ВАЖНИ (Член 8(2) т.1).`,
+      obligations: importantObl(),
+      sanctions: "До 1.4% од годишниот приход или до €7.000.000.",
+      deadlines: "31 декември 2026",
     };
   }
 
-  // Мал/микро субјект → ММСП
   return {
-    classification: "SME",
-    isAutoEssential: false,
-    track: "SME",
-    sectorName: sector.name.mk,
-    legalBasis: "Мал/микро субјект — Член 4(2) не се применува",
-    reason: `Вашата организација работи во областа "${sector.name.mk}" но е МАЛА или МИКРО организација. Член 4(2) се применува само на СРЕДНИ и ГОЛЕМИ субјекти. Не постои задолжителна обврска — препорачуваме ENISA ММСП проценката.`,
-    obligations: ["Доброволна усогласеност — нема законска обврска", "Препорачана ENISA ММСП проценка", "Доброволна регистрација кај MKD-CIRT"],
-    sanctions: "Нема задолжителни санкции",
-    deadlines: "Нема законски рокови",
+    classification: "SME", isAutoEssential: false, track: "SME",
+    sectorName: sector.name.mk, legalBasis: "Член 4(2) — мал/микро субјект",
+    reason: `МАЛА или МИКРО организација во "${sector.name.mk}". Член 4(2) важи само за средни и големи. Нема задолжителна обврска.`,
+    obligations: ["Доброволна усогласеност", "Препорачана ENISA ММСП проценка"],
+    sanctions: "Нема задолжителни санкции", deadlines: "Нема законски рокови",
   };
 }
 
-function essentialObligations(isPublic: boolean): string[] {
+function essentialObl(isPublic: boolean): string[] {
   return [
-    "Задолжителна регистрација во регистарот на суштински субјекти кај MKD-CIRT",
-    ...(isPublic ? [] : ["Именување на офицер за сајбер безбедност — Член 8(6)"]),
-    "Воспоставување сеопфатни мерки за безбедност на МИС — Член 29",
-    "Управување со ризици, безбедносни политики и технички контроли",
-    "Пријавување на значајни инциденти: почетно во 24 часа, финално во 72 часа",
-    "Активна сајбер заштита и континуиран мониторинг",
+    "Задолжителна регистрација кај MKD-CIRT",
+    ...(isPublic ? [] : ["Именување офицер за сајбер безбедност — Член 8(6)"]),
+    "Сеопфатни мерки за безбедност на МИС — Член 29",
+    "Управување со ризици и безбедносни политики",
+    "Пријавување инциденти: 24 часа почетно, 72 часа финално",
+    "Активна сајбер заштита и мониторинг",
     "Безбедност на синџирот на снабдување",
   ];
 }
 
-function importantObligations(): string[] {
+function importantObl(): string[] {
   return [
-    "Задолжителна регистрација во регистарот на важни субјекти кај MKD-CIRT",
-    "Воспоставување пропорционални мерки за безбедност на МИС",
+    "Задолжителна регистрација кај MKD-CIRT",
+    "Пропорционални мерки за безбедност на МИС",
     "Управување со ризици — пропорционален пристап",
     "Пријавување на значајни инциденти до MKD-CIRT",
     "Реактивен надзор — само по инцидент или жалба",
