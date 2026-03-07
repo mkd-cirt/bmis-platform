@@ -234,9 +234,9 @@ export default function ClassifyPage() {
               )}
             </div>
 
-            <button onClick={() => setStep(2)} disabled={!orgName.trim()}
+            <button onClick={() => skipSizeStep ? handleClassify() : setStep(2)} disabled={!orgName.trim()}
               className="btn-primary w-full justify-center py-3.5 disabled:opacity-40">
-              Продолжи →
+              {skipSizeStep ? "Класифицирај →" : "Продолжи →"}
             </button>
           </div>
         )}
