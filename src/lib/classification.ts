@@ -66,11 +66,29 @@ export interface ClassificationResult {
 }
 
 export function isLargeEntity(i: ClassificationInput): boolean {
-  return i.size === "LARGE" || i.employees > 250 || i.annualTurnoverM > 50 || i.annualBalanceSheetM > 43;
+  if (i.size === "LARGE") return true;
+
+  // За објективна класификација според финансиски показатели користиме
+  // „најмалку два од три“ критериуми (вработени, приход, биланс).
+  const largeSignals = [
+    i.employees >= 250,
+    i.annualTurnoverM > 50,
+    i.annualBalanceSheetM > 43,
+  ];
+
+  return largeSignals.filter(Boolean).length >= 2;
 }
 
 export function isMediumOrLargeEntity(i: ClassificationInput): boolean {
-  return isLargeEntity(i) || i.size === "MEDIUM" || i.employees >= 50 || i.annualTurnoverM >= 10 || i.annualBalanceSheetM >= 10;
+  if (isLargeEntity(i) || i.size === "MEDIUM") return true;
+
+  const mediumSignals = [
+    i.employees >= 50,
+    i.annualTurnoverM >= 10,
+    i.annualBalanceSheetM >= 10,
+  ];
+
+  return mediumSignals.filter(Boolean).length >= 2;
 }
 
 /**
@@ -152,12 +170,17 @@ export function classifyEntity(input: ClassificationInput): ClassificationResult
   );
 
   if (!sector || input.sectorId === "OTHER") {
+    const isBiggerEntity = isMediumOrLargeEntity(input);
     return {
-      classification: isMediumOrLargeEntity(input) ? "NOT_COVERED" : "SME",
-      isAutoEssential: false, track: "SME", sectorName: "Друг сектор",
+      classification: isBiggerEntity ? "NOT_COVERED" : "SME",
+      isAutoEssential: false, track: isBiggerEntity ? "NONE" : "SME", sectorName: "Друг сектор",
       legalBasis: "Надвор од Член 4(2) на ЗБМИС",
       reason: "Секторот не е опфатен со Член 4(2) на ЗБМИС. Нема задолжителна обврска.",
-      obligations: ["Доброволна усогласеност", "Следење на ENISA препораки"],
+      obligations: [
+        "Доброволна усогласеност и самопроценка",
+        "Следење на ENISA и MKD-CIRT препораки",
+        ...(isBiggerEntity ? ["Препорачана внатрешна проценка на ризик поради деловна критичност"] : []),
+      ],
       sanctions: "Нема задолжителни санкции", deadlines: "Нема законски рокови",
     };
   }

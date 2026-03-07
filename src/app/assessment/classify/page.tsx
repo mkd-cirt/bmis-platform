@@ -150,14 +150,14 @@ export default function ClassifyPage() {
     <div className="min-h-screen bg-[#080f1e] px-4 py-10">
       <div className="absolute inset-0 grid-bg pointer-events-none opacity-30" />
 
-      <div className="relative max-w-xl mx-auto">
+      <div className="relative max-w-2xl mx-auto">
         <Link href="/assessment"
           className="inline-flex items-center gap-2 text-xs font-mono text-slate-500 hover:text-slate-300 mb-10 tracking-wider uppercase transition-colors">
           ← Назад
         </Link>
 
         {/* Header */}
-        <div className="mb-10">
+        <div className="mb-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6 md:p-7">
           <div className="text-xs font-mono text-blue-500 tracking-widest uppercase mb-3">
             ЗБМИС · Сл. весник бр. 135 · 4.7.2025
           </div>
@@ -170,7 +170,7 @@ export default function ClassifyPage() {
         </div>
 
         {/* Step indicator */}
-        <div className="flex items-center gap-0 mb-10">
+        <div className="flex items-center gap-0 mb-8">
           {steps.map((s, i) => (
             <div key={s} className="flex items-center">
               <div className="flex items-center gap-2">
@@ -192,6 +192,14 @@ export default function ClassifyPage() {
           ))}
         </div>
 
+
+
+        <div className="mb-6 rounded-2xl border border-blue-500/20 bg-blue-500/5 p-4">
+          <p className="text-xs text-blue-100/90 leading-relaxed">
+            Платформата дава индикативна класификација според внесените податоци и релевантните одредби од ЗБМИС.
+            За регулаторна потврда, користете ја официјалната постапка кај надлежните институции.
+          </p>
+        </div>
         {/* ═══════════════ STEP 1 ═══════════════ */}
         {step === 1 && (
           <div className="space-y-4">
