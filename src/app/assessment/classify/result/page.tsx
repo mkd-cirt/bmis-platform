@@ -31,7 +31,7 @@ export default function ResultPage() {
   return (
     <div className="min-h-screen bg-[#080f1e] px-4 py-10">
       <div className="absolute inset-0 grid-bg pointer-events-none opacity-30" />
-      <div className="relative max-w-xl mx-auto">
+      <div className="relative max-w-2xl mx-auto">
 
         <Link href="/assessment/classify"
           className="inline-flex items-center gap-2 text-xs font-mono text-slate-500 hover:text-slate-300 mb-10 tracking-wider uppercase transition-colors">
@@ -39,7 +39,7 @@ export default function ResultPage() {
         </Link>
 
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6 md:p-7">
           <div className="text-xs font-mono text-slate-600 mb-2 uppercase tracking-wider">
             {data.orgName}
           </div>
@@ -87,7 +87,7 @@ export default function ResultPage() {
         )}
 
         {/* Sanctions + Deadlines */}
-        <div className="grid grid-cols-2 gap-3 mb-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-5">
           <div className="rounded-xl border border-red-500/12 bg-red-500/3 p-4">
             <div className="text-xs font-mono text-red-500 uppercase tracking-wider mb-2">Санкции</div>
             <div className="text-xs text-slate-400 leading-relaxed">{data.sanctions}</div>
@@ -99,11 +99,14 @@ export default function ResultPage() {
         </div>
 
         {/* Disclaimer */}
-        <p className="text-xs text-slate-600 leading-relaxed mb-8 px-1">
-          Оваа класификација е индикативна. Финалната листа на суштински и важни субјекти ја утврдува
-          Владата на РСМ на предлог на Министерството за дигитална трансформација согласно Член 7
-          од ЗБМИС (Сл. весник бр. 135, 4.7.2025). Не претставува правен совет.
-        </p>
+        <div className="mb-8 rounded-2xl border border-white/8 bg-white/[0.02] p-4">
+          <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-2">Правна напомена</div>
+          <p className="text-xs text-slate-400 leading-relaxed">
+            Оваа класификација е индикативна и служи како самопроценка. Финалната листа на суштински и важни субјекти ја утврдува
+            Владата на РСМ на предлог на Министерството за дигитална трансформација согласно Член 7
+            од ЗБМИС (Сл. весник бр. 135, 4.7.2025). Не претставува правен совет.
+          </p>
+        </div>
 
         {/* CTA */}
         <div className="flex gap-3">

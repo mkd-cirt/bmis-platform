@@ -147,7 +147,7 @@ export default function Home() {
       <section id="how" className="py-28 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <div className="font-mono text-xs text-blue-500 tracking-widest uppercase mb-3">// процес</div>
+            <div className="font-mono text-xs text-blue-500 tracking-widest uppercase mb-3">процес</div>
             <h2 className="font-display text-4xl font-700 text-white mb-4">Како функционира проценката?</h2>
             <p className="text-slate-400 max-w-xl mx-auto text-sm leading-relaxed">Три фази — од идентификување на вашиот статус до добивање на детален план за подобрување</p>
           </div>
@@ -169,7 +169,7 @@ export default function Home() {
       <section id="about" className="py-28 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <div className="font-mono text-xs text-blue-500 tracking-widest uppercase mb-3">// патеки</div>
+            <div className="font-mono text-xs text-blue-500 tracking-widest uppercase mb-3">патеки</div>
             <h2 className="font-display text-4xl font-700 text-white mb-4">За кого е наменета?</h2>
             <p className="text-slate-400 max-w-xl mx-auto text-sm">Изберете ја патеката соодветна за вашата организација</p>
           </div>
@@ -212,7 +212,7 @@ export default function Home() {
       <section id="domains" className="py-28 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <div className="font-mono text-xs text-blue-500 tracking-widest uppercase mb-3">// покриеност</div>
+            <div className="font-mono text-xs text-blue-500 tracking-widest uppercase mb-3">покриеност</div>
             <h2 className="font-display text-4xl font-700 text-white mb-4">12 домени на проценка</h2>
             <p className="text-slate-400 max-w-xl mx-auto text-sm">Сеопфатна проценка базирана на NIS2, ISO 27001, ENISA насоки и ЗБМИС</p>
           </div>
@@ -238,7 +238,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-transparent pointer-events-none" />
             <div className="relative grid md:grid-cols-2 gap-10 items-center">
               <div>
-                <div className="font-mono text-xs text-blue-400 mb-3 uppercase tracking-widest">// законска рамка</div>
+                <div className="font-mono text-xs text-blue-400 mb-3 uppercase tracking-widest">законска рамка</div>
                 <h3 className="font-display text-3xl font-700 text-white mb-4">Закон за БМИС / NIS2</h3>
                 <p className="text-slate-400 leading-relaxed mb-4 text-sm">
                   Законот за безбедност на мрежни и информациски системи (ЗБМИС) ги транспонира барањата на NIS2 директивата во националното законодавство на Република Северна Македонија.
@@ -283,7 +283,7 @@ export default function Home() {
           <div className="glass rounded-3xl p-12 md:p-16 border border-blue-500/15 relative overflow-hidden glow-blue">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-600/8 via-transparent to-indigo-600/5 pointer-events-none" />
             <div className="relative">
-              <div className="font-mono text-xs text-blue-400 mb-4 uppercase tracking-widest">// започнете денес</div>
+              <div className="font-mono text-xs text-blue-400 mb-4 uppercase tracking-widest">започнете денес</div>
               <h2 className="font-display text-4xl md:text-5xl font-800 text-white mb-4">
                 Проверете ја <span className="gradient-text">усогласеноста</span>
               </h2>
