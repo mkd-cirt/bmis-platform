@@ -3,14 +3,12 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const CFG: Record<string,{icon:string;label:string;border:string;bg:string;color:string}> = {
-  ESSENTIAL:    { icon:"🔴", label:"СУШТИНСКИ СУБЈЕКТ",              border:"border-red-500/30",    bg:"from-red-600/5",    color:"text-red-300"    },
-  IMPORTANT:    { icon:"🟡", label:"ВАЖЕН СУБЈЕКТ",                  border:"border-amber-500/30",  bg:"from-amber-600/5",  color:"text-amber-300"  },
-  PUBLIC_SECTOR:{ icon:"🏛️", label:"СУШТИНСКИ — ЈАВЕН СЕКТОР",       border:"border-blue-500/30",   bg:"from-blue-600/5",   color:"text-blue-300"   },
-  SPECIAL:      { icon:"⚡", label:"СУШТИНСКИ — ПОСЕБНА КАТЕГОРИЈА", border:"border-red-500/30",    bg:"from-red-600/5",    color:"text-red-300"    },
-  SME:          { icon:"🟢", label:"ММСП — НЕ Е ДИРЕКТНО ОПФАТЕН",  border:"border-green-500/30",  bg:"from-green-600/5",  color:"text-green-300"  },
-  NOT_COVERED:  { icon:"⚪", label:"НЕ Е ДИРЕКТНО ОПФАТЕН",          border:"border-slate-500/30",  bg:"from-slate-600/5",  color:"text-slate-400"  },
-};
+const CFG = {
+  ESSENTIAL:   { icon: "🔴", label: "СУШТИНСКИ СУБЈЕКТ",          border: "border-red-500/30",   bg: "from-red-600/5",   color: "text-red-300"   },
+  IMPORTANT:   { icon: "🟡", label: "ВАЖЕН СУБЈЕКТ",              border: "border-amber-500/30", bg: "from-amber-600/5", color: "text-amber-300" },
+  SME:         { icon: "🟢", label: "ММСП — не е опфатен со ЗБМИС", border: "border-green-500/30",bg: "from-green-600/5", color: "text-green-300" },
+  NOT_COVERED: { icon: "⚪", label: "НЕ Е ДИРЕКТНО ОПФАТЕН",      border: "border-slate-500/30", bg: "from-slate-600/5", color: "text-slate-400" },
+} as const;
 
 export default function ClassifyResultPage() {
   const router = useRouter();
@@ -28,8 +26,7 @@ export default function ClassifyResultPage() {
     </div>
   );
 
-  const cfg = CFG[data.classification] || CFG.NOT_COVERED;
-  const isBmis = data.track === "BMIS";
+  const cfg = CFG[data.classification as keyof typeof CFG] || CFG.NOT_COVERED;
 
   return (
     <div className="min-h-screen bg-[#080f1e] px-4 py-12">
@@ -45,14 +42,25 @@ export default function ClassifyResultPage() {
           <h1 className="font-display text-3xl font-700 text-white">Статус на субјектот</h1>
         </div>
 
-        {/* Result */}
+        {/* Auto-essential badge */}
+        {data.isAutoEssential && (
+          <div className="mb-4 p-3 rounded-xl border border-red-500/25 bg-red-500/6 flex items-center gap-3">
+            <span className="text-xl">⚡</span>
+            <div className="text-xs text-red-300">
+              <span className="font-medium">Автоматска класификација</span> — овој субјект е суштински{" "}
+              <span className="font-medium text-white">независно од бројот на вработени, приходот или билансот</span>.
+            </div>
+          </div>
+        )}
+
+        {/* Main result */}
         <div className={`glass-md rounded-2xl p-8 border ${cfg.border} mb-5 relative overflow-hidden`}>
           <div className={`absolute inset-0 bg-gradient-to-br ${cfg.bg} to-transparent pointer-events-none`} />
           <div className="relative">
             <div className="flex items-start gap-5 mb-5">
               <span className="text-5xl flex-shrink-0">{cfg.icon}</span>
-              <div>
-                <div className="text-xs font-mono text-slate-500 mb-1 uppercase tracking-wide">{data.orgName}</div>
+              <div className="flex-1 min-w-0">
+                <div className="text-xs font-mono text-slate-500 mb-1 uppercase tracking-wide truncate">{data.orgName}</div>
                 <h2 className={`font-display text-2xl font-800 mb-2 ${cfg.color}`}>{cfg.label}</h2>
                 <div className="text-xs text-blue-400 font-mono">{data.legalBasis}</div>
               </div>
@@ -88,24 +96,24 @@ export default function ClassifyResultPage() {
           </div>
         </div>
 
-        {/* Disclaimer */}
+        {/* Legal note */}
         <div className="glass rounded-xl p-4 border border-white/5 text-xs text-slate-500 mb-8 leading-relaxed">
-          ⚠️ Оваа класификација е индикативна и информативна. Финалната листа на суштински и важни субјекти ја утврдува Владата на РСМ на предлог на Министерството за дигитална трансформација согласно Член 7 од ЗБМИС (Сл. весник бр. 135, 4.7.2025). Оваа алатка не претставува правен совет.
+          ⚠️ Оваа класификација е индикативна. Финалната листа на суштински и важни субјекти ја утврдува Владата на РСМ на предлог на Министерството за дигитална трансформација согласно Член 7 од ЗБМИС (Сл. весник бр. 135, 4.7.2025). Оваа алатка не претставува правен совет.
         </div>
 
         {/* CTA */}
         <div className="flex gap-4 flex-wrap">
-          {isBmis ? (
+          {data.track === "BMIS" ? (
             <Link href="/assessment?track=bmis" className="btn-primary flex-1 justify-center py-3.5">
               Продолжи со БМИС проценка →
             </Link>
           ) : (
             <Link href="/assessment?track=sme" className="btn-primary flex-1 justify-center py-3.5"
-              style={{background:"linear-gradient(135deg,#059669,#10b981)"}}>
+              style={{ background: "linear-gradient(135deg,#059669,#10b981)" }}>
               Продолжи со ММСП проценка →
             </Link>
           )}
-          <Link href="/assessment" className="btn-ghost px-6 py-3">Почетна на проценка</Link>
+          <Link href="/assessment/classify" className="btn-ghost px-6 py-3">← Нова класификација</Link>
         </div>
       </div>
     </div>
