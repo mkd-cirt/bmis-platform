@@ -229,7 +229,7 @@ export default function AssessmentPage() {
           ← Назад
         </button>
         <div className="mb-8">
-          <div className="font-mono text-xs text-blue-500 mb-2 uppercase tracking-widest">// фаза 01</div>
+          <div className="font-mono text-xs text-blue-500 mb-2 uppercase tracking-widest">фаза 01</div>
           <h2 className="font-display text-3xl font-700 text-white mb-2">Определување на статус</h2>
           <p className="text-slate-400 text-sm">Одговорете за да утврдиме вашата NIS2 класификација.</p>
         </div>
@@ -314,7 +314,7 @@ export default function AssessmentPage() {
           ← Назад
         </button>
         <div className="mb-8">
-          <div className="font-mono text-xs text-blue-500 mb-2 uppercase tracking-widest">// резултат</div>
+          <div className="font-mono text-xs text-blue-500 mb-2 uppercase tracking-widest">резултат</div>
           <h2 className="font-display text-3xl font-700 text-white">Класификација</h2>
         </div>
 
@@ -553,7 +553,7 @@ export default function AssessmentPage() {
           </button>
 
           <div className="text-center mb-10">
-            <div className="font-mono text-xs text-blue-500 mb-2 uppercase tracking-widest">// резултати</div>
+            <div className="font-mono text-xs text-blue-500 mb-2 uppercase tracking-widest">резултати</div>
             <h2 className="font-display text-4xl font-700 text-white mb-2">Извештај за усогласеност</h2>
             <p className="text-slate-400 text-sm">{track==="bmis"?"БМИС / NIS2 Проценка":"ММСП Проценка"} · {orgName}</p>
           </div>
