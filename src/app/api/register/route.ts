@@ -35,6 +35,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true, userId: user.id });
   } catch (err: any) {
     console.error("Register error:", err);
-    return NextResponse.json({ error: "Грешка при регистрација. Обидете се повторно." }, { status: 500 });
+    return NextResponse.json({ error: err?.message ?? "Грешка при регистрација. Обидете се повторно." }, { status: 500 });
   }
 }
