@@ -24,9 +24,9 @@ const config: Config = {
       },
       colors: {
         navy: {
-          DEFAULT: "#0a0f1a",
-          mid: "#0f1629",
-          light: "#151d33",
+          DEFAULT: "#0b1120",
+          mid: "#111827",
+          light: "#1a2540",
         },
       },
       animation: {

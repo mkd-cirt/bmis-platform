@@ -19,9 +19,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="mk" suppressHydrationWarning>
       <head>
-        <meta name="theme-color" content="#0a0f1a" />
+        <meta name="theme-color" content="#0b1120" />
       </head>
-      <body className="bg-[#0a0f1a] text-slate-100 antialiased">{children}</body>
+      <body className="bg-[#0b1120] text-slate-100 antialiased">{children}</body>
     </html>
   );
 }

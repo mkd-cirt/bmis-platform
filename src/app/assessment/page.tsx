@@ -122,7 +122,7 @@ export default function AssessmentPage() {
 
   // ── HOME ──────────────────────────────────────────────────────────────────
   if (phase==="home") return (
-    <div className="min-h-screen bg-[#0a0f1a] px-4 py-12">
+    <div className="min-h-screen bg-[#0b1120] px-4 py-12">
       <div className="absolute inset-0 grid-bg pointer-events-none opacity-60" />
       <div className="relative max-w-4xl mx-auto">
         <Link href="/" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-300 mb-10 transition-colors">
@@ -219,7 +219,7 @@ export default function AssessmentPage() {
 
   // ── CLASSIFY ─────────────────────────────────────────────────────────────
   if (phase==="classify") return (
-    <div className="min-h-screen bg-[#0a0f1a] px-4 py-12">
+    <div className="min-h-screen bg-[#0b1120] px-4 py-12">
       <div className="absolute inset-0 grid-bg pointer-events-none opacity-40" />
       <div className="relative max-w-2xl mx-auto">
         <button onClick={()=>setPhase("home")} className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-300 mb-8 transition-colors">
@@ -304,7 +304,7 @@ export default function AssessmentPage() {
 
   // ── CLASSIFY RESULT ───────────────────────────────────────────────────────
   if (phase==="result-classify" && classResult) return (
-    <div className="min-h-screen bg-[#0a0f1a] px-4 py-12">
+    <div className="min-h-screen bg-[#0b1120] px-4 py-12">
       <div className="absolute inset-0 grid-bg pointer-events-none opacity-40" />
       <div className="relative max-w-2xl mx-auto">
         <button onClick={()=>setPhase("classify")} className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-300 mb-8 transition-colors">
@@ -366,7 +366,7 @@ export default function AssessmentPage() {
     const controls = domain.controls;
 
     return (
-      <div className="min-h-screen bg-[#0a0f1a] flex">
+      <div className="min-h-screen bg-[#0b1120] flex">
 
         {/* ── Sidebar ── */}
         <aside className="hidden lg:flex w-72 flex-col glass border-r border-white/5 fixed h-full overflow-y-auto">
@@ -544,7 +544,7 @@ export default function AssessmentPage() {
         }));
 
     return (
-      <div className="min-h-screen bg-[#0a0f1a] px-4 py-12">
+      <div className="min-h-screen bg-[#0b1120] px-4 py-12">
         <div className="absolute inset-0 grid-bg pointer-events-none opacity-40" />
         <div className="relative max-w-4xl mx-auto">
           <button onClick={()=>setPhase("assessment")} className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-300 mb-8 transition-colors">
