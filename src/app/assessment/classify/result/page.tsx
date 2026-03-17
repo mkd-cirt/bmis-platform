@@ -21,7 +21,7 @@ export default function ResultPage() {
   }, [router]);
 
   if (!data) return (
-    <div className="min-h-screen bg-[#080f1e] flex items-center justify-center">
+    <div className="min-h-screen bg-[#0a0f1a] flex items-center justify-center">
       <div className="text-slate-500 text-sm font-mono">Се вчитува...</div>
     </div>
   );
@@ -29,8 +29,8 @@ export default function ResultPage() {
   const s = STATUS[data.classification as keyof typeof STATUS] ?? STATUS.NOT_COVERED;
 
   return (
-    <div className="min-h-screen bg-[#080f1e] px-4 py-10">
-      <div className="absolute inset-0 grid-bg pointer-events-none opacity-30" />
+    <div className="min-h-screen bg-[#0a0f1a] px-4 py-10">
+      <div className="absolute inset-0 grid-bg pointer-events-none opacity-20" />
       <div className="relative max-w-2xl mx-auto">
 
         <Link href="/assessment/classify"

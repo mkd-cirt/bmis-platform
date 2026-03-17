@@ -36,7 +36,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080f1e] flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-[#0a0f1a] flex items-center justify-center px-4 py-12">
       <div className="absolute inset-0 grid-bg pointer-events-none opacity-50" />
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-700/10 rounded-full blur-[100px] pointer-events-none" />
 

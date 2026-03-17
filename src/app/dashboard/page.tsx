@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-[#080f1e]">
+    <div className="min-h-screen bg-[#0a0f1a]">
       <nav className="glass border-b border-white/5 px-6 h-16 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-blue-600 rounded-xl flex items-center justify-center font-display font-bold text-sm text-white">MK</div>
