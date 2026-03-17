@@ -70,8 +70,8 @@ export async function POST(req: NextRequest) {
     });
 
     const text = response.content
-      .filter((b) => b.type === "text")
-      .map((b) => (b as { type: "text"; text: string }).text)
+      .filter((b: Anthropic.ContentBlock) => b.type === "text")
+      .map((b: Anthropic.ContentBlock) => (b as Anthropic.TextBlock).text)
       .join("");
 
     return NextResponse.json({ reply: text });
