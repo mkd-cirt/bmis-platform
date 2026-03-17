@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 
 const ADMIN_EMAIL    = process.env.ADMIN_EMAIL    ?? "admin@mkd-cirt.mk";

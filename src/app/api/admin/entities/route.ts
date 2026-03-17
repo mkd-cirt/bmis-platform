@@ -1,5 +1,5 @@
+export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/server/db";
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? "admin@mkd-cirt.mk";
 const PAGE_SIZE   = 20;
@@ -33,6 +33,8 @@ export async function GET(req: NextRequest) {
     ...(search ? { name: { contains: search, mode: "insensitive" as const } } : {}),
     ...(type   ? { entityType: type as any } : {}),
   };
+
+  const { prisma } = await import("@/server/db");
 
   const [total, organizations] = await Promise.all([
     prisma.organization.count({ where }),
