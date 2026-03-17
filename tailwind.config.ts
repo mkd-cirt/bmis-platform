@@ -5,8 +5,10 @@ const config: Config = {
   ],
   safelist: [
     "glass","glass-md","glass-hover","gradient-text","grid-bg",
-    "glow-blue","text-glow","font-display","font-mono",
-    "animate-fade-up","animate-fade-in","animate-pulse-orb","animate-spin-slow",
+    "font-display","font-mono",
+    "card","card-hover","domain-icon",
+    "section-label","section-title","section-desc","divider",
+    "animate-fade-up","animate-fade-in",
     "btn-primary","btn-ghost","input","sidebar-item",
     "progress-track","progress-fill",
     "badge","badge-critical","badge-high","badge-medium","badge-low",
@@ -16,28 +18,24 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        display: ["Syne", "sans-serif"],
+        display: ["Inter", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
-        sans: ["DM Sans", "sans-serif"],
+        sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
       },
       colors: {
         navy: {
-          DEFAULT: "#080f1e",
-          mid: "#0d1a35",
-          light: "#122040",
+          DEFAULT: "#0a0f1a",
+          mid: "#0f1629",
+          light: "#151d33",
         },
       },
       animation: {
-        "fade-up":    "fadeUp 0.6s ease both",
-        "fade-in":    "fadeIn 0.4s ease both",
-        "pulse-orb":  "pulseOrb 5s ease-in-out infinite",
-        "spin-slow":  "spinSlow 25s linear infinite",
+        "fade-up":  "fadeUp 0.5s ease both",
+        "fade-in":  "fadeIn 0.3s ease both",
       },
       keyframes: {
-        fadeUp:   { from:{ opacity:"0", transform:"translateY(20px)" }, to:{ opacity:"1", transform:"translateY(0)" } },
-        fadeIn:   { from:{ opacity:"0" }, to:{ opacity:"1" } },
-        pulseOrb: { "0%,100%":{ opacity:".12", transform:"scale(1)" }, "50%":{ opacity:".25", transform:"scale(1.08)" } },
-        spinSlow: { from:{ transform:"rotate(0deg)" }, to:{ transform:"rotate(360deg)" } },
+        fadeUp: { from:{ opacity:"0", transform:"translateY(12px)" }, to:{ opacity:"1", transform:"translateY(0)" } },
+        fadeIn: { from:{ opacity:"0" }, to:{ opacity:"1" } },
       },
     },
   },

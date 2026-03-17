@@ -22,7 +22,7 @@ export const bmis_domains: BmisDomain[] = [
     title: "Управување и управување со ризици",
     titleEn: "Governance & Risk Management",
     description: "Воспоставување на стратешки пристап кон управување со информациска безбедност и ризици во организацијата.",
-    icon: "🏛️",
+    icon: "GV",
     controls: [
       { id:"D01-C01", title:"Политика за информациска безбедност", description:"Дали организацијата има воспоставено и документирано политика за информациска безбедност која е одобрена од раководството и редовно прегледувана?", severity:"critical", references:["NIS2 Art.21","ISO 27001 A.5.1","ZBMIS Чл.12"] },
       { id:"D01-C02", title:"Улоги и одговорности за безбедност", description:"Дали се јасно дефинирани улогите и одговорностите за информациска безбедност низ целата организација, вклучувајќи именување на CISO или еквивалентна функција?", severity:"critical", references:["NIS2 Art.20","ISO 27001 A.5.2","ZBMIS Чл.13"] },
@@ -40,7 +40,7 @@ export const bmis_domains: BmisDomain[] = [
     title: "Управување со средства",
     titleEn: "Asset Management",
     description: "Идентификување, класификација и заштита на информациските средства на организацијата.",
-    icon: "📦",
+    icon: "AM",
     controls: [
       { id:"D02-C01", title:"Инвентар на средства", description:"Дали организацијата одржува ажуриран и комплетен инвентар на сите информациски средства (хардвер, софтвер, податоци, мрежни компоненти)?", severity:"critical", references:["NIS2 Art.21(2)b","ISO 27001 A.8.1.1","NIST CSF ID.AM"] },
       { id:"D02-C02", title:"Класификација на информации", description:"Дали организацијата има воспоставено шема за класификација на информации (пр. јавно, интерно, доверливо, тајно)?", severity:"high", references:["ISO 27001 A.8.2","NIST CSF ID.AM-5"] },
@@ -55,7 +55,7 @@ export const bmis_domains: BmisDomain[] = [
     title: "Контрола на пристап и управување со идентитети",
     titleEn: "Access Control & Identity Management",
     description: "Управување со пристапот до системи и информации преку принципите на најмала привилегија и потреба да се знае.",
-    icon: "🔐",
+    icon: "AC",
     controls: [
       { id:"D03-C01", title:"Политика за контрола на пристап", description:"Дали организацијата има дефинирана и имплементирана политика за контрола на пристап базирана на принципот на најмала привилегија?", severity:"critical", references:["NIS2 Art.21(2)i","ISO 27001 A.9.1","NIST CSF PR.AC"] },
       { id:"D03-C02", title:"Управување со корисничките сметки", description:"Дали постои формален процес за креирање, промена и деактивирање на корисничките сметки, вклучувајќи редовни прегледи?", severity:"critical", references:["ISO 27001 A.9.2","NIST CSF PR.AC-1","CIS Control 6"] },
@@ -74,7 +74,7 @@ export const bmis_domains: BmisDomain[] = [
     title: "Криптографија",
     titleEn: "Cryptography",
     description: "Употреба на криптографски контроли за заштита на доверливоста, интегритетот и автентичноста на информациите.",
-    icon: "🔒",
+    icon: "CR",
     controls: [
       { id:"D04-C01", title:"Политика за криптографија", description:"Дали организацијата има политика за употреба на криптографски контроли, вклучувајќи одобрени алгоритми и клучна должина?", severity:"critical", references:["NIS2 Art.21(2)h","ISO 27001 A.10.1","NIST SP 800-175B"] },
       { id:"D04-C02", title:"Шифрирање на податоци во мирување", description:"Дали чувствителните податоци складирани на дискови, бази на податоци и медиуми се шифрирани со одобрени алгоритми (AES-256)?", severity:"critical", references:["NIS2 Art.21(2)h","ISO 27001 A.10.1.1","ENISA Guidelines"] },
@@ -90,7 +90,7 @@ export const bmis_domains: BmisDomain[] = [
     title: "Мрежна и системска безбедност",
     titleEn: "Network & System Security",
     description: "Заштита на мрежната инфраструктура, системите и податоците од неовластен пристап и напади.",
-    icon: "🌐",
+    icon: "NS",
     controls: [
       { id:"D05-C01", title:"Мрежна сегментација", description:"Дали мрежата е сегментирана на зони (пр. DMZ, внатрешна мрежа, OT) со соодветни контроли на граничните точки?", severity:"critical", references:["NIS2 Art.21(2)c","ISO 27001 A.13.1","NIST CSF PR.AC-5"] },
       { id:"D05-C02", title:"Firewall и заштита на периметарот", description:"Дали се применуваат next-generation firewall решенија со редовно прегледани правила и ограничување на сообраќајот?", severity:"critical", references:["ISO 27001 A.13.1.3","CIS Control 13","NIST CSF PR.PT-4"] },
@@ -108,7 +108,7 @@ export const bmis_domains: BmisDomain[] = [
     title: "Управување со инциденти",
     titleEn: "Incident Management",
     description: "Откривање, пријавување, управување и научените лекции од безбедносните инциденти.",
-    icon: "🚨",
+    icon: "IM",
     controls: [
       { id:"D06-C01", title:"План за управување со инциденти", description:"Дали организацијата има документиран план за управување со безбедносни инциденти со дефинирани улоги, одговорности и процедури?", severity:"critical", references:["NIS2 Art.21(2)b","ISO 27001 A.16.1","NIST CSF RS"] },
       { id:"D06-C02", title:"Пријавување на инциденти до MKD-CIRT", description:"Дали организацијата ги познава и применува законските обврски за пријавување на значајни инциденти до MKD-CIRT согласно ЗБМИС Чл.27: 3 часа — рано предупредување до надлежниот тим; 24 часа — извештај за рано предупредување; 72 часа — почетна проценка; 1 месец — финална нотификација?", severity:"critical", references:["NIS2 Art.23","ЗБМИС Чл.27","ENISA Incident Reporting"] },
@@ -125,7 +125,7 @@ export const bmis_domains: BmisDomain[] = [
     title: "Континуитет на деловните операции",
     titleEn: "Business Continuity",
     description: "Обезбедување непречено работење на критичните услуги и брзо закрепнување по инцидент.",
-    icon: "♻️",
+    icon: "BC",
     controls: [
       { id:"D07-C01", title:"Анализа на влијание врз бизнисот (BIA)", description:"Дали организацијата спровела BIA за идентификување на критичните процеси, RTO и RPO целите?", severity:"critical", references:["NIS2 Art.21(2)c","ISO 27001 A.17.1","NIST CSF RC.RP"] },
       { id:"D07-C02", title:"План за непрекинатост на работата (BCP)", description:"Дали организацијата има документиран BCP со процедури за одржување на критичните услуги за време на инцидент?", severity:"critical", references:["NIS2 Art.21(2)c","ISO 22301","ZBMIS Чл.15"] },
@@ -141,7 +141,7 @@ export const bmis_domains: BmisDomain[] = [
     title: "Безбедност на синџирот на снабдување",
     titleEn: "Supply Chain Security",
     description: "Управување со безбедносните ризици кои произлегуваат од добавувачите и деловните партнери.",
-    icon: "🔗",
+    icon: "SC",
     controls: [
       { id:"D08-C01", title:"Политика за безбедност на добавувачи", description:"Дали организацијата има политика за управување со ризиците на добавувачите, вклучувајќи барања за безбедност при избор?", severity:"critical", references:["NIS2 Art.21(2)d","ISO 27001 A.15.1","ZBMIS Чл.16"] },
       { id:"D08-C02", title:"Договорни безбедносни барања", description:"Дали договорите со добавувачите содржат конкретни безбедносни барања, NDA клаузули и право на ревизија?", severity:"critical", references:["NIS2 Art.21(2)d","ISO 27001 A.15.1.2","ENISA Supply Chain"] },
@@ -156,7 +156,7 @@ export const bmis_domains: BmisDomain[] = [
     title: "Безбеден развој и управување со промени",
     titleEn: "Secure Development & Change Management",
     description: "Интегрирање на безбедноста во развојниот циклус на системите и управувањето со промени.",
-    icon: "💻",
+    icon: "SD",
     controls: [
       { id:"D09-C01", title:"Политика за безбеден развој (SDL)", description:"Дали организацијата има воспоставено Secure Development Lifecycle (SDL) политика со безбедносни барања во секоја фаза?", severity:"high", references:["NIS2 Art.21(2)e","ISO 27001 A.14.2","OWASP SAMM"] },
       { id:"D09-C02", title:"Барања за безбедност", description:"Дали безбедносните барања се дефинираат и документираат на почетокот на секој развоен проект?", severity:"high", references:["ISO 27001 A.14.1","OWASP Top 10"] },
@@ -174,7 +174,7 @@ export const bmis_domains: BmisDomain[] = [
     title: "Безбедност на човечките ресурси",
     titleEn: "HR Security",
     description: "Управување со безбедносните аспекти поврзани со вработените и нивните улоги.",
-    icon: "👥",
+    icon: "HR",
     controls: [
       { id:"D10-C01", title:"Безбедносни проверки при вработување", description:"Дали организацијата спроведува проверки на потенцијалните вработени (согласно законот) пред пристап до чувствителни системи?", severity:"high", references:["ISO 27001 A.7.1","NIST CSF PR.AT"] },
       { id:"D10-C02", title:"Обука за безбедносна свест", description:"Дали вработените редовно (барем еднаш годишно) добиваат обука за безбедносна свест, вклучувајќи фишинг симулации?", severity:"critical", references:["NIS2 Art.20","ISO 27001 A.7.2.2","ENISA Awareness"] },
@@ -189,7 +189,7 @@ export const bmis_domains: BmisDomain[] = [
     title: "Физичка и еколошка безбедност",
     titleEn: "Physical & Environmental Security",
     description: "Заштита на физичките средства, просториите и опремата од неовластен пристап и оштетување.",
-    icon: "🏢",
+    icon: "PS",
     controls: [
       { id:"D11-C01", title:"Контрола на физички пристап", description:"Дали пристапот до серверски соби, дата центри и области со чувствителни системи е ограничен само на овластен персонал?", severity:"critical", references:["ISO 27001 A.11.1","NIST CSF PR.AC-2","ЗБМИС Чл.29"] },
       { id:"D11-C02", title:"Физичка заштита на опремата", description:"Дали опремата е заштитена од физичка кражба, оштетување, пожар и природни катастрофи?", severity:"high", references:["ISO 27001 A.11.2","NIST CSF PR.PT"] },
@@ -204,7 +204,7 @@ export const bmis_domains: BmisDomain[] = [
     title: "Усогласеност, ревизија и управување со евиденција",
     titleEn: "Compliance, Audit & Log Management",
     description: "Обезбедување усогласеност со законот, стандардите и регулативите, и управување со логови.",
-    icon: "📋",
+    icon: "CA",
     controls: [
       { id:"D12-C01", title:"Управување со логови и евиденција", description:"Дали организацијата собира, складира и штити логови од критичните системи со доволен период на задржување (минимум 12 месеци)?", severity:"critical", references:["NIS2 Art.21(2)g","ISO 27001 A.12.4","ZBMIS Чл.18"] },
       { id:"D12-C02", title:"SIEM и анализа на логови", description:"Дали логовите се централизирано собираат и анализираат преку SIEM систем за детекција на аномалии?", severity:"high", references:["NIS2 Art.21","ISO 27001 A.12.4","CIS Control 8"] },

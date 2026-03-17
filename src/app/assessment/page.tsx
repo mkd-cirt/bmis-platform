@@ -122,7 +122,7 @@ export default function AssessmentPage() {
 
   // ── HOME ──────────────────────────────────────────────────────────────────
   if (phase==="home") return (
-    <div className="min-h-screen bg-[#080f1e] px-4 py-12">
+    <div className="min-h-screen bg-[#0a0f1a] px-4 py-12">
       <div className="absolute inset-0 grid-bg pointer-events-none opacity-60" />
       <div className="relative max-w-4xl mx-auto">
         <Link href="/" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-300 mb-10 transition-colors">
@@ -131,8 +131,8 @@ export default function AssessmentPage() {
 
         <div className="text-center mb-14">
           <div className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full text-xs text-blue-300 border border-blue-500/20 mb-6">
-            <span className="w-2 h-2 bg-green-400 rounded-full" style={{animation:"pulse 2s infinite"}} />
-            MKD-CIRT · Алатка за самооценување v1.0
+            <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full" />
+            MKD-CIRT · Алатка за самооценување
           </div>
           <h1 className="font-display text-4xl md:text-5xl font-800 text-white mb-4">
             Алатка за самооценување
@@ -145,41 +145,39 @@ export default function AssessmentPage() {
         {/* Steps */}
         <div className="grid md:grid-cols-3 gap-4 mb-10">
           {[
-            {n:"01",icon:"🎯",t:"Определување на статус",d:"Прашања за сектор и големина на организацијата."},
-            {n:"02",icon:"📋",t:"Проценка на усогласеност",d:"Детален контролен список по домени."},
-            {n:"03",icon:"📊",t:"Анализа на резултати",d:"Визуелен приказ, недостатоци и план за подобрување."},
+            {n:"01",t:"Определување на статус",d:"Прашања за сектор и големина на организацијата."},
+            {n:"02",t:"Проценка на усогласеност",d:"Детален контролен список по домени."},
+            {n:"03",t:"Анализа на резултати",d:"Визуелен приказ, недостатоци и план за подобрување."},
           ].map(s=>(
-            <div key={s.n} className="glass glass-hover rounded-2xl p-6 border border-white/5 transition-all hover:-translate-y-0.5">
-              <div className="text-2xl mb-3">{s.icon}</div>
-              <div className="font-mono text-xs text-blue-500 mb-2">ФАЗА {s.n}</div>
-              <div className="font-display font-600 text-white mb-2">{s.t}</div>
+            <div key={s.n} className="card card-hover p-6">
+              <div className="w-8 h-8 rounded-lg bg-blue-500/8 border border-blue-500/15 flex items-center justify-center text-xs font-bold text-blue-400 mb-3">{s.n}</div>
+              <div className="font-semibold text-white mb-2 text-sm">{s.t}</div>
               <div className="text-sm text-slate-400 leading-relaxed">{s.d}</div>
             </div>
           ))}
         </div>
 
         {/* Load saved */}
-        <div className="glass rounded-2xl p-6 border border-white/5 mb-8">
+        <div className="card p-6 mb-8">
           <div className="flex items-start justify-between flex-wrap gap-4">
             <div>
-              <h3 className="font-display font-600 text-white mb-1">📂 Продолжи со претходна проценка</h3>
+              <h3 className="font-semibold text-white mb-1">Продолжи со претходна проценка</h3>
               <p className="text-sm text-slate-400">Прикачете претходно зачуван JSON фајл.</p>
             </div>
             <div>
               <input ref={fileRef} type="file" accept=".json" onChange={loadJSON} className="hidden" />
               <button onClick={()=>fileRef.current?.click()} className="btn-ghost text-sm py-2 px-4">
-                📥 Вчитај прогрес
+                Вчитај прогрес
               </button>
             </div>
           </div>
         </div>
 
         {/* Tracks */}
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          <div className="glass rounded-2xl p-8 border border-blue-500/15 hover:border-blue-500/30 transition-all hover:-translate-y-0.5">
-            <div className="text-3xl mb-4">🏛️</div>
-            <div className="inline-flex badge text-blue-300 bg-blue-500/10 border-blue-500/20 mb-3">Анекс I + II</div>
-            <h3 className="font-display font-700 text-white text-xl mb-3">За субјекти опфатени со ЗБМИС</h3>
+        <div className="grid md:grid-cols-2 gap-4 mb-8">
+          <div className="card card-hover p-6 border-blue-500/10">
+            <div className="inline-flex badge text-blue-400 bg-blue-500/8 border-blue-500/15 mb-3">Анекс I + II</div>
+            <h3 className="font-bold text-white text-lg mb-2">За субјекти опфатени со ЗБМИС</h3>
             <p className="text-slate-400 text-sm mb-5">Детална проценка за Суштински и Важни субјекти.</p>
             <ul className="space-y-2 mb-6 text-sm text-slate-300">
               {["12 домени со 90 контроли","Технички и организациски контроли","Извештај за законска усогласеност","PDF извоз на резултатите"].map(f=>(
@@ -196,10 +194,9 @@ export default function AssessmentPage() {
             </div>
           </div>
 
-          <div className="glass rounded-2xl p-8 border border-green-500/15 hover:border-green-500/30 transition-all hover:-translate-y-0.5">
-            <div className="text-3xl mb-4">🏪</div>
-            <div className="inline-flex badge text-green-300 bg-green-500/10 border-green-500/20 mb-3">ENISA</div>
-            <h3 className="font-display font-700 text-white text-xl mb-3">За ММСП</h3>
+          <div className="card card-hover p-6 border-emerald-500/10">
+            <div className="inline-flex badge text-emerald-400 bg-emerald-500/8 border-emerald-500/15 mb-3">ENISA</div>
+            <h3 className="font-bold text-white text-lg mb-2">За ММСП</h3>
             <p className="text-slate-400 text-sm mb-5">Поедноставена самопроценка базирана на ENISA препораки.</p>
             <ul className="space-y-2 mb-6 text-sm text-slate-300">
               {["6 поедноставени домени","Тристепенска проценка","Практични ENISA препораки","PDF извоз на резултатите"].map(f=>(
@@ -212,8 +209,8 @@ export default function AssessmentPage() {
           </div>
         </div>
 
-        <div className="glass rounded-2xl p-5 border border-amber-500/10 text-sm text-slate-500">
-          <span className="text-amber-400 font-medium">⚠️ Важно: </span>
+        <div className="card p-4 border-amber-500/10 text-sm text-slate-500">
+          <span className="text-amber-400 font-medium">Важно: </span>
           Оваа алатка работи согласно ЗБМИС, NIS2 и ENISA насоки. По усвојување на подзаконските акти можни се измени. Не претставува правен совет.
         </div>
       </div>
@@ -222,7 +219,7 @@ export default function AssessmentPage() {
 
   // ── CLASSIFY ─────────────────────────────────────────────────────────────
   if (phase==="classify") return (
-    <div className="min-h-screen bg-[#080f1e] px-4 py-12">
+    <div className="min-h-screen bg-[#0a0f1a] px-4 py-12">
       <div className="absolute inset-0 grid-bg pointer-events-none opacity-40" />
       <div className="relative max-w-2xl mx-auto">
         <button onClick={()=>setPhase("home")} className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-300 mb-8 transition-colors">
@@ -249,7 +246,7 @@ export default function AssessmentPage() {
             <select value={sectorId} onChange={e=>setSectorId(e.target.value)} className="input">
               <option value="">-- Изберете сектор --</option>
               {sectors.map(s=>(
-                <optgroup key={s.id} label={`${s.annex==="I"?"🔴":"🟡"} Анекс ${s.annex} — ${s.name.mk}`}>
+                <optgroup key={s.id} label={`Анекс ${s.annex} — ${s.name.mk}`}>
                   {s.subsectors.map(sub=>(
                     <option key={sub.id} value={s.id}>{sub.name.mk}</option>
                   ))}
@@ -307,7 +304,7 @@ export default function AssessmentPage() {
 
   // ── CLASSIFY RESULT ───────────────────────────────────────────────────────
   if (phase==="result-classify" && classResult) return (
-    <div className="min-h-screen bg-[#080f1e] px-4 py-12">
+    <div className="min-h-screen bg-[#0a0f1a] px-4 py-12">
       <div className="absolute inset-0 grid-bg pointer-events-none opacity-40" />
       <div className="relative max-w-2xl mx-auto">
         <button onClick={()=>setPhase("classify")} className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-300 mb-8 transition-colors">
@@ -323,10 +320,12 @@ export default function AssessmentPage() {
           classResult.classification==="IMPORTANT"  ? "border-amber-500/30" :
           classResult.classification==="SME"        ? "border-green-500/30" : "border-white/10"}`}>
           <div className="flex items-start gap-5">
-            <div className="text-5xl flex-shrink-0">
-              {classResult.classification==="ESSENTIAL" ? "🔴" :
-               classResult.classification==="IMPORTANT"  ? "🟡" :
-               classResult.classification==="SME"        ? "🟢" : "⚪"}
+            <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold flex-shrink-0 ${
+              classResult.classification==="ESSENTIAL" ? "bg-red-500/10 text-red-400 border border-red-500/20" :
+              classResult.classification==="IMPORTANT"  ? "bg-amber-500/10 text-amber-400 border border-amber-500/20" :
+              classResult.classification==="SME"        ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" :
+              "bg-slate-500/10 text-slate-400 border border-slate-500/20"}`}>
+              {classResult.classification?.charAt(0) || "N"}
             </div>
             <div>
               <h3 className="font-display text-2xl font-700 text-white mb-3">
@@ -367,7 +366,7 @@ export default function AssessmentPage() {
     const controls = domain.controls;
 
     return (
-      <div className="min-h-screen bg-[#080f1e] flex">
+      <div className="min-h-screen bg-[#0a0f1a] flex">
 
         {/* ── Sidebar ── */}
         <aside className="hidden lg:flex w-72 flex-col glass border-r border-white/5 fixed h-full overflow-y-auto">
@@ -405,7 +404,7 @@ export default function AssessmentPage() {
           </div>
 
           <div className="p-4 border-t border-white/5 space-y-2">
-            <button onClick={saveJSON} className="btn-ghost w-full text-xs py-2">💾 Зачувај прогрес</button>
+            <button onClick={saveJSON} className="btn-ghost w-full text-xs py-2">Зачувај прогрес</button>
             <button onClick={finish}   className="btn-primary w-full justify-center text-xs py-2">Заврши →</button>
           </div>
         </aside>
@@ -418,7 +417,7 @@ export default function AssessmentPage() {
             <div className="flex items-center justify-between mb-3">
               <Link href="/" className="text-sm text-slate-400">← Почетна</Link>
               <div className="flex gap-2">
-                <button onClick={saveJSON} className="btn-ghost text-xs py-1.5 px-3">💾</button>
+                <button onClick={saveJSON} className="btn-ghost text-xs py-1.5 px-3">Save</button>
                 <button onClick={finish}   className="btn-primary text-xs py-1.5 px-3">Заврши →</button>
               </div>
             </div>
@@ -545,7 +544,7 @@ export default function AssessmentPage() {
         }));
 
     return (
-      <div className="min-h-screen bg-[#080f1e] px-4 py-12">
+      <div className="min-h-screen bg-[#0a0f1a] px-4 py-12">
         <div className="absolute inset-0 grid-bg pointer-events-none opacity-40" />
         <div className="relative max-w-4xl mx-auto">
           <button onClick={()=>setPhase("assessment")} className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-300 mb-8 transition-colors">
@@ -592,7 +591,7 @@ export default function AssessmentPage() {
           {/* Domain bars */}
           {score && (
             <div className="glass rounded-2xl p-6 border border-white/8 mb-8">
-              <h3 className="font-display font-700 text-white mb-6">📊 Резултати по домени</h3>
+              <h3 className="font-display font-700 text-white mb-6">Резултати по домени</h3>
               <div className="space-y-4">
                 {score.domainScores.map((ds:any)=>(
                   <div key={ds.domainId}>
@@ -619,7 +618,7 @@ export default function AssessmentPage() {
           {/* SME domain bars fallback */}
           {!score && track==="sme" && (
             <div className="glass rounded-2xl p-6 border border-white/8 mb-8">
-              <h3 className="font-display font-700 text-white mb-6">📊 Резултати по домени</h3>
+              <h3 className="font-display font-700 text-white mb-6">Резултати по домени</h3>
               <div className="space-y-4">
                 {domains.map((d:any)=>{
                   const p = domainPct(d);
@@ -645,7 +644,7 @@ export default function AssessmentPage() {
           {/* Improvement plan */}
           {gaps.length > 0 && (
             <div className="glass rounded-2xl p-6 border border-red-500/8 mb-8">
-              <h3 className="font-display font-700 text-white mb-2">🎯 План за подобрување</h3>
+              <h3 className="font-display font-700 text-white mb-2">План за подобрување</h3>
               <p className="text-slate-400 text-sm mb-6">Приоритетни недостатоци подредени по критичност</p>
               <div className="space-y-3">
                 {gaps.map((g:any,i:number)=>(
@@ -672,11 +671,11 @@ export default function AssessmentPage() {
           <div className="flex flex-wrap gap-4">
             <button onClick={downloadPDF} disabled={saving}
               className="btn-primary gap-2 px-6 py-3">
-              {saving ? <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"/>Генерирање...</> : "📄 Преземи PDF извештај"}
+              {saving ? <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"/>Генерирање...</> : "Преземи PDF извештај"}
             </button>
-            <button onClick={saveJSON} className="btn-ghost px-6 py-3">💾 Зачувај JSON</button>
+            <button onClick={saveJSON} className="btn-ghost px-6 py-3">Зачувај JSON</button>
             <button onClick={()=>{setAnswers({});setNotes({});setScore(null);setPhase("home");}}
-              className="btn-ghost px-6 py-3">🔄 Нова проценка</button>
+              className="btn-ghost px-6 py-3">Нова проценка</button>
             <Link href="/" className="btn-ghost px-6 py-3">← Почетна</Link>
           </div>
         </div>

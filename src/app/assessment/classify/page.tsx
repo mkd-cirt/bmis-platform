@@ -15,14 +15,14 @@ import {
 const AUTO_TYPES = [
   {
     key: "isPublicSector" as const,
-    icon: "🏛",
+    icon: "§",
     label: "Институција на јавниот сектор",
     sublabel: "Член 8(1) т.4 + Член 4(1)",
     desc: "Собрание, Влада, министерство, суд, општини, самостојни органи на државната управа, управни организации",
   },
   {
     key: "isQualifiedTrustProvider" as const,
-    icon: "🔐",
+    icon: "◇",
     label: "Давател на квалификувани доверливи услуги",
     sublabel: "Член 8(1) т.2",
     desc: "Квалификувани електронски потписи, печати, временски жигови согласно прописите за е-идентификација",
@@ -147,7 +147,7 @@ export default function ClassifyPage() {
   const stepLabels = ["Тип на субјект", "Сектор", "Големина"];
 
   return (
-    <div className="min-h-screen bg-[#080f1e] px-4 py-10">
+    <div className="min-h-screen bg-[#0a0f1a] px-4 py-10">
       <div className="absolute inset-0 grid-bg pointer-events-none opacity-30" />
 
       <div className="relative max-w-2xl mx-auto">
