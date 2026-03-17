@@ -17,7 +17,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${scrolled ? "bg-[#0a0f1a]/95 backdrop-blur-md border-b border-white/[0.06] shadow-lg shadow-black/20" : "bg-transparent"}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${scrolled ? "bg-[#0b1120]/95 backdrop-blur-md border-b border-white/[0.06] shadow-lg shadow-black/20" : "bg-transparent"}`}>
       <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
 
         <Link href="/" className="flex items-center gap-2.5">
@@ -55,7 +55,7 @@ export default function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-[#0a0f1a]/95 backdrop-blur-md border-t border-white/[0.06] px-6 py-3 space-y-1 animate-fade-in">
+        <div className="md:hidden bg-[#0b1120]/95 backdrop-blur-md border-t border-white/[0.06] px-6 py-3 space-y-1 animate-fade-in">
           {navLinks.map(l => (
             <a key={l.href} href={l.href} onClick={() => setMobileOpen(false)} className="block py-2 text-sm text-slate-300 hover:text-white">{l.label}</a>
           ))}

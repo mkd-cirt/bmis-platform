@@ -147,7 +147,7 @@ export default function ClassifyPage() {
   const stepLabels = ["Тип на субјект", "Сектор", "Големина"];
 
   return (
-    <div className="min-h-screen bg-[#0a0f1a] px-4 py-10">
+    <div className="min-h-screen bg-[#0b1120] px-4 py-10">
       <div className="absolute inset-0 grid-bg pointer-events-none opacity-30" />
 
       <div className="relative max-w-2xl mx-auto">
