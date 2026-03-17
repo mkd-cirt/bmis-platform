@@ -182,7 +182,7 @@ export default function AssessmentPage() {
             <h3 className="font-display font-700 text-white text-xl mb-3">За субјекти опфатени со ЗБМИС</h3>
             <p className="text-slate-400 text-sm mb-5">Детална проценка за Суштински и Важни субјекти.</p>
             <ul className="space-y-2 mb-6 text-sm text-slate-300">
-              {["12 домени со 87 контроли","Технички и организациски контроли","Извештај за законска усогласеност","PDF извоз на резултатите"].map(f=>(
+              {["12 домени со 90 контроли","Технички и организациски контроли","Извештај за законска усогласеност","PDF извоз на резултатите"].map(f=>(
                 <li key={f} className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full"/>{f}</li>
               ))}
             </ul>
