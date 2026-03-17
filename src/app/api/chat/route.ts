@@ -1,7 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
-
 export const dynamic = "force-dynamic";
+import { NextRequest, NextResponse } from "next/server";
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? "admin@mkd-cirt.mk";
 
@@ -61,6 +59,7 @@ export async function POST(req: NextRequest) {
 
   // 3. Call Claude API.
   try {
+    const { default: Anthropic } = await import("@anthropic-ai/sdk");
     const client   = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
     const response = await client.messages.create({
       model:      "claude-sonnet-4-6",
@@ -70,8 +69,8 @@ export async function POST(req: NextRequest) {
     });
 
     const text = response.content
-      .filter((b: Anthropic.ContentBlock) => b.type === "text")
-      .map((b: Anthropic.ContentBlock) => (b as Anthropic.TextBlock).text)
+      .filter((b): b is { type: "text"; text: string } => b.type === "text")
+      .map((b) => b.text)
       .join("");
 
     return NextResponse.json({ reply: text });
